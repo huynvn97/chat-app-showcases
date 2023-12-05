@@ -14,16 +14,17 @@ class AuthViewModal: ObservableObject {
     @Published var isLoggedIn = false
     
     func checkAuth () {
+        
         guard let authUser = auth.currentUser else { return }
     
-        self.isLoggedIn = true
-        self.currenctUser = UserModal(id: authUser.uid)
-      
+        isLoggedIn = true
+        currenctUser = UserModal(id: authUser.uid)
+  
         if let email = authUser.email {
-            self.currenctUser?.email = email
+            currenctUser?.email = email
         }
         if let fullName = authUser.displayName {
-            self.currenctUser?.fullName = fullName
+            currenctUser?.fullName = fullName
         }
     }
     
