@@ -62,9 +62,16 @@ class AuthViewModal: ObservableObject {
         
     }
     
-    func logout () {
-        isLoggedIn = false
-        currenctUser = nil
+    func logout () async {
+        
+        do  {
+            try await auth.signOut()
+            
+            isLoggedIn = false
+            currenctUser = nil
+        } catch {
+            
+        }
     }
     
     func initUserProfile() {

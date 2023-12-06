@@ -17,10 +17,18 @@ struct SearchFriendBox: View {
 struct MainScreen: View {
 
     var body: some View {
-        VStack {
-            SearchFriendBox()
-            ListChatScreen()
-            Spacer()
+        TabView {
+            VStack {
+                SearchFriendBox()
+                ListChatScreen()
+                Spacer()
+            }.tabItem {
+                Text("Chat")
+            }
+            
+            SettingScreen().tabItem {
+                Text("Settings")
+            }
         }
     }
 }
