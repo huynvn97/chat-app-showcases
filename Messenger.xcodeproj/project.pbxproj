@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		30C10F20EC28F98A6BDC46A2 /* Pods_Messenger.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 03CC8366817F74D7719CD64A /* Pods_Messenger.framework */; };
 		34CE7B645729156583F17563 /* Pods_MessengerTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6659C97D5E4DAF487BA80E5C /* Pods_MessengerTests.framework */; };
+		6018BFC42B1F69C500CDE797 /* ListChatScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6018BFC32B1F69C500CDE797 /* ListChatScreen.swift */; };
+		6018BFC62B2062C200CDE797 /* FriendViewModal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6018BFC52B2062C200CDE797 /* FriendViewModal.swift */; };
 		604621442B1B928600519F61 /* MessengerApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 604621432B1B928600519F61 /* MessengerApp.swift */; };
 		604621462B1B928600519F61 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 604621452B1B928600519F61 /* ContentView.swift */; };
 		604621482B1B928600519F61 /* Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = 604621472B1B928600519F61 /* Item.swift */; };
@@ -51,6 +53,8 @@
 		08CE27EF7C96B1B87B25C13A /* Pods-Messenger-MessengerUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Messenger-MessengerUITests.release.xcconfig"; path = "Target Support Files/Pods-Messenger-MessengerUITests/Pods-Messenger-MessengerUITests.release.xcconfig"; sourceTree = "<group>"; };
 		1F64706FF147FF52BCAF5BD4 /* Pods-MessengerTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MessengerTests.debug.xcconfig"; path = "Target Support Files/Pods-MessengerTests/Pods-MessengerTests.debug.xcconfig"; sourceTree = "<group>"; };
 		4D13B9A9568496BEA14434C9 /* Pods-Messenger.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Messenger.debug.xcconfig"; path = "Target Support Files/Pods-Messenger/Pods-Messenger.debug.xcconfig"; sourceTree = "<group>"; };
+		6018BFC32B1F69C500CDE797 /* ListChatScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListChatScreen.swift; sourceTree = "<group>"; };
+		6018BFC52B2062C200CDE797 /* FriendViewModal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendViewModal.swift; sourceTree = "<group>"; };
 		604621402B1B928600519F61 /* Messenger.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Messenger.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		604621432B1B928600519F61 /* MessengerApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessengerApp.swift; sourceTree = "<group>"; };
 		604621452B1B928600519F61 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -104,6 +108,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		6018BFC22B1F69A200CDE797 /* chat */ = {
+			isa = PBXGroup;
+			children = (
+				6018BFC32B1F69C500CDE797 /* ListChatScreen.swift */,
+			);
+			path = chat;
+			sourceTree = "<group>";
+		};
 		604621372B1B928600519F61 = {
 			isa = PBXGroup;
 			children = (
@@ -180,6 +192,7 @@
 			isa = PBXGroup;
 			children = (
 				604621852B1CBD3700519F61 /* AuthViewModal.swift */,
+				6018BFC52B2062C200CDE797 /* FriendViewModal.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -195,6 +208,7 @@
 		604621722B1B92AD00519F61 /* screens */ = {
 			isa = PBXGroup;
 			children = (
+				6018BFC22B1F69A200CDE797 /* chat */,
 				604621752B1B92CF00519F61 /* LoginScreen.swift */,
 				604621812B1C9D8A00519F61 /* MainScreen.swift */,
 			);
@@ -479,8 +493,10 @@
 				604621822B1C9D8A00519F61 /* MainScreen.swift in Sources */,
 				604621462B1B928600519F61 /* ContentView.swift in Sources */,
 				604621482B1B928600519F61 /* Item.swift in Sources */,
+				6018BFC62B2062C200CDE797 /* FriendViewModal.swift in Sources */,
 				6046217E2B1C933A00519F61 /* CustomTextField.swift in Sources */,
 				604621762B1B92CF00519F61 /* LoginScreen.swift in Sources */,
+				6018BFC42B1F69C500CDE797 /* ListChatScreen.swift in Sources */,
 				604621802B1C9D1D00519F61 /* CustomButton.swift in Sources */,
 				604621442B1B928600519F61 /* MessengerApp.swift in Sources */,
 				604621882B1CC06200519F61 /* UserModel.swift in Sources */,

@@ -22,6 +22,18 @@ struct TitleStyle: ViewModifier {
     }
 }
 
+struct LabelStyle: ViewModifier {
+    func body(content: Content) -> some View {
+        content.font(.headline).fontWeight(.bold).foregroundColor(.black)
+    }
+}
+
+struct DescriptionStyle: ViewModifier {
+    func body(content: Content) -> some View {
+        content.font(.body).fontWeight(.regular).foregroundColor(.gray)
+    }
+}
+
 #Preview {
     Text("Hello, world, this is title text long long").textStyle(TitleStyle())
 }

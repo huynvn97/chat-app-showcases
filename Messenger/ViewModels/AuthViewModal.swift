@@ -7,9 +7,12 @@
 
 import Foundation
 import FirebaseAuth
+import FirebaseFirestore
 
 class AuthViewModal: ObservableObject {
     let auth = Auth.auth()
+    let firestore = Firestore.firestore()
+    
     @Published var currenctUser: UserModal? = nil
     @Published var isLoggedIn = false
     
@@ -26,6 +29,8 @@ class AuthViewModal: ObservableObject {
         if let fullName = authUser.displayName {
             currenctUser?.fullName = fullName
         }
+        
+        initUserProfile()
     }
     
     func login(username: String, password: String) {
@@ -44,10 +49,13 @@ class AuthViewModal: ObservableObject {
                     strongSelf.currenctUser?.fullName = fullName
                 }
                 
+                strongSelf.initUserProfile()
             } else if let error = error {
                 print("Sign-in failed: \(error.localizedDescription)")
             }
         }
+        
+       
     }
     
     func register() {
@@ -57,5 +65,35 @@ class AuthViewModal: ObservableObject {
     func logout () {
         isLoggedIn = false
         currenctUser = nil
+    }
+    
+    func initUserProfile() {
+        let userCollection = firestore.collection("users")
+        
+        if let currentUserId = currenctUser?.id {
+            let userDocRef = userCollection.document(currentUserId)
+            
+            userDocRef.getDocument { snapshot, error in
+                if let error = error {
+                    print("Init profile error: \(error.localizedDescription)")
+                    return
+                }
+                
+                if let userDocument = snapshot {
+                    userCollection.document(currentUserId).setData([
+                        "id": currentUserId,
+                        "email": self.currenctUser?.email ?? "",
+                        "fullName": self.currenctUser?.fullName ?? ""
+                    ]) { [weak self] err in
+                        if let err = err  {
+                            print("err init profile: \(err.localizedDescription)")
+                        }
+                        else {
+                            print("save ok")
+                        }
+                    }
+                }
+            }
+        }
     }
 }

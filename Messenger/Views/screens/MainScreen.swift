@@ -7,9 +7,21 @@
 
 import SwiftUI
 
-struct MainScreen: View {
+struct SearchFriendBox: View {
+    @State private var searchText = "";
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        TextField("Search Friend", text: $searchText).textFieldStyle(BorderedTextFieldStyle())
+    }
+}
+
+struct MainScreen: View {
+
+    var body: some View {
+        VStack {
+            SearchFriendBox()
+            ListChatScreen()
+            Spacer()
+        }
     }
 }
 

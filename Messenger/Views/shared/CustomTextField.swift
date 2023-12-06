@@ -19,6 +19,22 @@ extension SecureField {
     }
 }
 
+struct BorderedTextFieldStyle: ViewModifier {
+    func body(content: Content) -> some View {
+        content
+            .fontWeight(.semibold)
+            .padding(.horizontal, 15)
+            .padding(.vertical, 15)
+            .background(Color.buttonBackgroundGray)
+            .overlay {
+                RoundedRectangle(cornerRadius: 10)
+                    .stroke(Color.buttonBackgroundGray, lineWidth: 0)
+            }
+           
+    }
+}
+
+
 struct BorderedTopTextFieldStyle: ViewModifier {
     func body(content: Content) -> some View {
         content
