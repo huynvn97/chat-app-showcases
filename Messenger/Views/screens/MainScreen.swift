@@ -8,11 +8,11 @@
 import SwiftUI
 
 struct MainScreen: View {
-    @State var activeScreenTag: String? = nil
+    @State var activeScreenTag: SCREEN_NAMES?
     
     var body: some View {
         VStack {
-            NavigationLink(destination: ChatScreen(), tag: "ChatScreen", selection: $activeScreenTag) { EmptyView()
+            NavigationLink(destination: ChatScreen(), tag: SCREEN_NAMES.CHAT_SCREEN, selection: $activeScreenTag) { EmptyView()
             }
             TabView {
             

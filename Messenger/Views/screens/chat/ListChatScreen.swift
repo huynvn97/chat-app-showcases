@@ -16,7 +16,7 @@ struct SearchFriendBox: View {
 
 struct ListChatScreen: View {
     @EnvironmentObject private var friendViewModel: FriendViewModal
-    @Binding var activeScreenTag: String?
+    @Binding var activeScreenTag: SCREEN_NAMES?
     
     var body: some View {
         NavigationStack {
@@ -41,7 +41,7 @@ struct ListChatScreen: View {
                         .padding(.horizontal, 15)
                         .padding(.vertical, 15)
                         .onTapGesture {
-                            activeScreenTag = "ChatScreen"
+                            activeScreenTag = .CHAT_SCREEN
                         }
                     
                 }
@@ -55,7 +55,7 @@ struct ListChatScreen: View {
 }
 
 struct ListChatScreenForPreview: View {
-    @State var activeScreenTag: String? = nil
+    @State var activeScreenTag: SCREEN_NAMES?
     @StateObject private var friendViewModel = FriendViewModal()
     
     var body: some View {
