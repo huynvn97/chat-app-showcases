@@ -12,6 +12,7 @@
 		6018BFC42B1F69C500CDE797 /* ListChatScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6018BFC32B1F69C500CDE797 /* ListChatScreen.swift */; };
 		6018BFC62B2062C200CDE797 /* FriendViewModal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6018BFC52B2062C200CDE797 /* FriendViewModal.swift */; };
 		6018BFC82B206C7600CDE797 /* SettingScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6018BFC72B206C7600CDE797 /* SettingScreen.swift */; };
+		6018BFCA2B20960200CDE797 /* ChatScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6018BFC92B20960200CDE797 /* ChatScreen.swift */; };
 		604621442B1B928600519F61 /* MessengerApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 604621432B1B928600519F61 /* MessengerApp.swift */; };
 		604621462B1B928600519F61 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 604621452B1B928600519F61 /* ContentView.swift */; };
 		604621482B1B928600519F61 /* Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = 604621472B1B928600519F61 /* Item.swift */; };
@@ -57,6 +58,7 @@
 		6018BFC32B1F69C500CDE797 /* ListChatScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListChatScreen.swift; sourceTree = "<group>"; };
 		6018BFC52B2062C200CDE797 /* FriendViewModal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendViewModal.swift; sourceTree = "<group>"; };
 		6018BFC72B206C7600CDE797 /* SettingScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingScreen.swift; sourceTree = "<group>"; };
+		6018BFC92B20960200CDE797 /* ChatScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatScreen.swift; sourceTree = "<group>"; };
 		604621402B1B928600519F61 /* Messenger.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Messenger.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		604621432B1B928600519F61 /* MessengerApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessengerApp.swift; sourceTree = "<group>"; };
 		604621452B1B928600519F61 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -114,6 +116,7 @@
 			isa = PBXGroup;
 			children = (
 				6018BFC32B1F69C500CDE797 /* ListChatScreen.swift */,
+				6018BFC92B20960200CDE797 /* ChatScreen.swift */,
 			);
 			path = chat;
 			sourceTree = "<group>";
@@ -505,6 +508,7 @@
 				604621442B1B928600519F61 /* MessengerApp.swift in Sources */,
 				604621882B1CC06200519F61 /* UserModel.swift in Sources */,
 				6046217C2B1C8C0D00519F61 /* CustomText.swift in Sources */,
+				6018BFCA2B20960200CDE797 /* ChatScreen.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
