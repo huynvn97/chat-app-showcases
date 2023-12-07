@@ -16,6 +16,7 @@ struct SearchFriendBox: View {
 
 struct ListChatScreen: View {
     @EnvironmentObject private var friendViewModel: FriendViewModal
+    @Binding var activeScreenTag: String?
     
     var body: some View {
         NavigationStack {
@@ -24,9 +25,7 @@ struct ListChatScreen: View {
                 
                 ForEach(friendViewModel.friends) {
                     friend in
-                    NavigationLink {
-                        ChatScreen().navigationTitle(friend.fullName ?? friend.email ?? "Fake")
-                    } label: {
+                   
                         HStack {
                             Image("WelcomeAppIcon")
                                 .resizable()
@@ -41,7 +40,10 @@ struct ListChatScreen: View {
                         }
                         .padding(.horizontal, 15)
                         .padding(.vertical, 15)
-                    }
+                        .onTapGesture {
+                            activeScreenTag = "ChatScreen"
+                        }
+                    
                 }
             }
         }
@@ -52,6 +54,16 @@ struct ListChatScreen: View {
     }
 }
 
+struct ListChatScreenForPreview: View {
+    @State var activeScreenTag: String? = nil
+    @StateObject private var friendViewModel = FriendViewModal()
+    
+    var body: some View {
+        ListChatScreen(activeScreenTag: $activeScreenTag)
+            .environmentObject(friendViewModel)
+    }
+}
+
 #Preview {
-     ListChatScreen()
+    ListChatScreenForPreview()
 }
