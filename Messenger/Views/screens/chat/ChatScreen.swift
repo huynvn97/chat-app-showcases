@@ -6,26 +6,57 @@
 //
 
 import SwiftUI
+
+struct MessageInput: View {
+    @Binding var input: String;
+    @EnvironmentObject private var messageViewModal: MessageViewModel
+    @EnvironmentObject private var authViewModel: AuthViewModal
+    
+    var body: some View {
+        HStack {
+            TextField("Enter message", text: $input).textFieldStyle(BorderedTextFieldStyle()).disabled(messageViewModal.sending)
+            Button("Send") {
+                if (authViewModel.currenctUser?.id) != nil {
+                    messageViewModal.addMessage(content: input) { err in
+                        if (err == nil) {
+                            self.input = ""
+                        }
+                    }
+                }
+            }.disabled(messageViewModal.sending)
+        }
+    }
+}
             
 struct ChatScreen: View {
     @State var input = ""
     @EnvironmentObject private var messageViewModal: MessageViewModel
-
+    @EnvironmentObject private var authViewModel: AuthViewModal
+    
     var body: some View {
         List {
             ForEach(messageViewModal.messages) {
-                message in
+                msg in
                 HStack {
-                    Text(message.senderName).bold()
+                    Text(msg.senderName).bold()
                     Text(": ").foregroundColor(.gray)
-                    Text(message.content)
+                    Text(msg.content)
                 }
             }
         }.onAppear {
-            messageViewModal.fetchMessages()
+            if (messageViewModal.messages.count <= 0) {
+                messageViewModal.fetchMessages { error in
+                    if error == nil {
+                        messageViewModal.startObserving()
+                    }
+                }
+            }
+        }
+        .onDisappear {
+            messageViewModal.resetMessages()
         }
         
-        TextField("Enter message", text: $input).textFieldStyle(BorderedTextFieldStyle())
+        MessageInput(input: $input)
     }
 }
 

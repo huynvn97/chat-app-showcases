@@ -14,4 +14,5 @@ struct Message: Identifiable {
     let receiverId: String
     let receiverName: String
     let content: String
+    let createdAt: Date
 }
