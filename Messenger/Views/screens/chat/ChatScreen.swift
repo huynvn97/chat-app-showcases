@@ -6,14 +6,34 @@
 //
 
 import SwiftUI
-
+            
 struct ChatScreen: View {
+    @State var input = ""
+    @EnvironmentObject var authViewModel: AuthViewModal
+    
+    @StateObject var messageViewModal = MessageViewModel(
+        participantId: "",
+        participantName: "",
+        currentUserId: self.authViewModel.currenctUser?.id ?? "",
+        currentUserFullname: self.authViewModel.currenctUser?.fullName ?? ""
+    )
+
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        List {
+            ForEach(messageViewModal.messages) {
+                message in
+                HStack {
+                    Text(message.senderName).bold()
+                    Text(": ").foregroundColor(.gray)
+                    Text(message.content)
+                }
+            }
+        }
+        TextField("Enter message", text: $input).textFieldStyle(BorderedTextFieldStyle())
     }
 }
 
-#Preview {
-    ChatScreen()
-}
+//#Preview {
+//    ChatScreen()
+//}
 
