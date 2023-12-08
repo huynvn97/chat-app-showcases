@@ -9,14 +9,7 @@ import SwiftUI
             
 struct ChatScreen: View {
     @State var input = ""
-    @EnvironmentObject var authViewModel: AuthViewModal
-    
-    @StateObject var messageViewModal = MessageViewModel(
-        participantId: "",
-        participantName: "",
-        currentUserId: self.authViewModel.currenctUser?.id ?? "",
-        currentUserFullname: self.authViewModel.currenctUser?.fullName ?? ""
-    )
+    @EnvironmentObject private var messageViewModal: MessageViewModel
 
     var body: some View {
         List {
@@ -28,7 +21,10 @@ struct ChatScreen: View {
                     Text(message.content)
                 }
             }
+        }.onAppear {
+            messageViewModal.fetchMessages()
         }
+        
         TextField("Enter message", text: $input).textFieldStyle(BorderedTextFieldStyle())
     }
 }

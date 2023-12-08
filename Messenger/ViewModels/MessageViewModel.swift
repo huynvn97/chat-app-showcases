@@ -9,17 +9,18 @@ import Foundation
 import FirebaseFirestore
 
 class MessageViewModel: ObservableObject {
-    var participantId: String
-    var participantName: String
-    var currentUserId: String
-    var currentUserFullname: String
+    var participantId: String?
+    var participantName: String?
+    var currentUserId: String?
+    var currentUserFullname: String?
     let firestore = Firestore.firestore()
     
     @Published var messages = [Message]()
     @Published var refreshing = false;
     @Published var loading = false;
     
-    init (participantId: String, participantName: String, currentUserId: String, currentUserFullname: String) {
+    
+    func setChatInfo (participantId: String, participantName: String, currentUserId: String, currentUserFullname: String) {
         self.participantId = participantId
         self.participantName = participantName
         self.currentUserId = currentUserId
@@ -42,16 +43,17 @@ class MessageViewModel: ObservableObject {
                 docs?.forEach({ doc in
                     let messageData = doc.data()
                     
+                    
                     self.messages.append(Message(
                         id: messageData["id"] as? String ?? "",
                         senderId: messageData["senderId"] as? String ?? "",
-                        senderName: currentUserFullname,
+                        senderName: "SenderName",
                         receiverId: messageData["receiverId"] as? String ?? "",
-                        receiverName: self.currentUserFullname,
+                        receiverName: "ReceiverName",
                         content: messageData["content"] as? String ?? ""
                     ))
                 })
-               
+                
             }
     }
     

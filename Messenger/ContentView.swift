@@ -10,6 +10,7 @@ import SwiftUI
 struct ContentView: View {
     @StateObject private var authViewModel = AuthViewModal()
     @StateObject private var friendViewModel = FriendViewModal()
+    @StateObject private var messageViewModel = MessageViewModel()
     
     var body: some View {
         NavigationView {
@@ -21,6 +22,7 @@ struct ContentView: View {
         }
         .environmentObject(authViewModel)
         .environmentObject(friendViewModel)
+        .environmentObject(messageViewModel)
         .onAppear {
             authViewModel.checkAuth()
         }

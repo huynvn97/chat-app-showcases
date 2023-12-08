@@ -16,6 +16,8 @@ struct SearchFriendBox: View {
 
 struct ListChatScreen: View {
     @EnvironmentObject private var friendViewModel: FriendViewModal
+    @EnvironmentObject private var authViewModel: AuthViewModal
+    @EnvironmentObject private var messageViewModal: MessageViewModel
     @Binding var activeScreenTag: SCREEN_NAMES?
     
     var body: some View {
@@ -42,6 +44,13 @@ struct ListChatScreen: View {
                         .padding(.vertical, 15)
                         .onTapGesture {
                             activeScreenTag = .CHAT_SCREEN
+                            
+                            messageViewModal.setChatInfo(
+                                participantId: friend.id,
+                                participantName: friend.fullName ?? "",
+                                currentUserId: authViewModel.currenctUser?.id ?? "",
+                                currentUserFullname: authViewModel.currenctUser?.fullName ?? ""
+                            )
                         }
                     
                 }
