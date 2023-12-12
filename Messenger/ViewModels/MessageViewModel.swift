@@ -20,7 +20,6 @@ class MessageViewModel: ObservableObject {
     @Published var refreshing = false;
     @Published var loading = false;
     @Published var sending = false;
-    @Published var isFirstLoading = true;
     
     private var listener: ListenerRegistration?
     
@@ -31,50 +30,13 @@ class MessageViewModel: ObservableObject {
         self.currentUserFullname = currentUserFullname
     }
     
-    func fetchMessages(completion: ((Error?) -> Void)? = nil) {
-        refreshing = true;
-        collectionRef
-            .order(by: "createdAt", descending: true)
-            .whereField("senderId", in: [currentUserId, participantId])
-            .whereField("receiverId", in: [currentUserId, participantId])
-            .getDocuments {
-                snapshot, error in
-                guard let snapshot = snapshot, error == nil else {
-                    return
-                }
-                
-                let docs = snapshot.documents
-                
-                docs.forEach({ doc in
-                    let messageData = doc.data()
-                    
-                    self.messages.append(Message(
-                        id: doc.documentID,
-                        senderId: messageData["senderId"] as? String ?? "",
-                        senderName: "SenderName",
-                        receiverId: messageData["receiverId"] as? String ?? "",
-                        receiverName: "ReceiverName",
-                        content: messageData["content"] as? String ?? "",
-                        createdAt: messageData["createdAt"] as? Date ?? Date()
-                    ))
-                })
-                
-                self.isFirstLoading = false
-                                
-                if let completion = completion {
-                    completion(error)
-                }
-            }
-                
-    }
-    
     func loadMoreMessages () {
         loading = true
     }
     
     func resetMessages () {
-        self.messages = []
         self.stopObserving()
+        self.messages = []
     }
     
     func addMessage(content: String, completion: @escaping (Error?) -> Void) {
@@ -94,13 +56,15 @@ class MessageViewModel: ObservableObject {
     }
     
     func startObserving() {
-        if (participantId != nil && currentUserId != nil) {
-            listener = collectionRef.addSnapshotListener({ snapshot, error in
+        guard participantId != nil && currentUserId != nil else { return }
+        
+        listener = collectionRef
+            .order(by: "createdAt", descending: true)
+            .whereField("senderId", in: [currentUserId, participantId])
+            .whereField("receiverId", in: [currentUserId, participantId])
+            .addSnapshotListener({ snapshot, error in
                 guard let snapshot = snapshot, error == nil else {
                     print("Error listening for collection changes: \(error!)")
-                    return
-                }
-                if (self.isFirstLoading == true) {
                     return
                 }
                 
@@ -126,7 +90,7 @@ class MessageViewModel: ObservableObject {
                     }
                 }
             })
-        }
+        
     }
     
     func stopObserving() {

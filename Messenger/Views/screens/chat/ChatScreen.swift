@@ -44,10 +44,7 @@ struct ChatScreen: View {
                 }
             }
         }.onAppear {
-            if (messageViewModal.messages.count <= 0) {
-                messageViewModal.startObserving()
-                messageViewModal.fetchMessages()
-            }
+            messageViewModal.startObserving()
         }
         .onDisappear {
             messageViewModal.resetMessages()
