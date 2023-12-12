@@ -44,17 +44,25 @@ struct ListChatScreen: View {
                             .aspectRatio(contentMode: .fit)
                             .frame(width: 50)
                         
-                        VStack {
-                            Text(friend.email ?? "Unknow").textStyle(LabelStyle())
-                            Text("You: Ok Thanks").textStyle(DescriptionStyle())
+                        
+                        VStack (alignment: .leading){
+                            Text(friend.email ?? "Unknow")
+                                .textStyle(LabelStyle())
+                            
+                            Text("Me: Oke ne")
+                                .textStyle(DescriptionStyle())
                         }
-                    }.padding(.vertical, 10)
+                    }
+                    .padding(.vertical, 10)
+                    .listRowSeparator(.hidden)
                     .onTapGesture {
                         handleOnPress(friend)
                     }
                 }
             }.scrollContentBackground(.hidden)
             .listStyle(.plain)
+            
+        
             
         }.onAppear {
             friendViewModel.fetchFriends()
