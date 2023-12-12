@@ -22,18 +22,16 @@ class FriendViewModal: ObservableObject {
                     let userData = documentSnapshot.data()
                     print("user data", userData)
                     
-                    if let userId = userData["id"] as? String {
-                        var user = UserModal(id: userId)
-                        if let email = userData["email"] as? String {
-                            user.email = email
-                        }
-                        if let fullName = userData["fullName"] as? String {
-                            user.fullName = fullName
-                        }
-                        
-                        self.friends = [UserModal]()
-                        self.friends.append(user)
-                    }
+                    guard let userId = userData["id"] as? String else { return }
+                    
+                    var user = UserModal(id: userId)
+                    
+                    user.email = userData["email"] as? String ?? nil
+                    user.fullName = userData["fullName"] as? String ?? nil
+                    
+                    self.friends = [UserModal]()
+                    self.friends.append(user)
+                    
                 })
             }
         }
@@ -45,5 +43,13 @@ class FriendViewModal: ObservableObject {
         friends.append(UserModal(id: "user-id-3", fullName: "Adam Nguyen", email: "adam@gmail.com"))
     }
     
-    
+    func getFriendNameById(friendId: String) -> String? {
+        guard let foundFriend = self.friends.first(where: { fr in
+            fr.id == friendId
+        }) else {
+            return nil
+        }
+        
+        return foundFriend.fullName
+    }
 }

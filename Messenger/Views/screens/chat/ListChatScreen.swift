@@ -46,7 +46,7 @@ struct ListChatScreen: View {
                         
                         
                         VStack (alignment: .leading){
-                            Text(friend.email ?? "Unknow")
+                            Text(friendViewModel.getFriendNameById(friendId: friend.id) ?? "Unknow")
                                 .textStyle(LabelStyle())
                             
                             Text("Me: Oke ne")

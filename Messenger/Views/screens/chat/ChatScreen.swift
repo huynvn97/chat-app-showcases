@@ -32,18 +32,22 @@ struct ChatScreen: View {
     @State var input = ""
     @EnvironmentObject private var messageViewModal: MessageViewModel
     @EnvironmentObject private var authViewModel: AuthViewModal
+    @EnvironmentObject private var friendViewModel: FriendViewModal
     
     var body: some View {
         List {
             ForEach(messageViewModal.messages) {
                 msg in
                 HStack {
-                    Text(msg.senderName).bold()
+                    Text(friendViewModel.getFriendNameById(friendId: msg.senderId) ?? "Unknow").bold()
                     Text(": ").foregroundColor(.gray)
                     Text(msg.content)
                 }
+                .listRowSeparator(.hidden)
             }
-        }.onAppear {
+        }
+        .listStyle(.plain)
+        .onAppear {
             messageViewModal.startObserving()
         }
         .onDisappear {
