@@ -24,7 +24,7 @@ struct MainScreen: View {
                     Text("Settings")
                 }
             }
-        }
+        }.background(.white)
     }
 }
 

@@ -20,6 +20,7 @@ class MessageViewModel: ObservableObject {
     @Published var refreshing = false;
     @Published var loading = false;
     @Published var sending = false;
+    @Published var isFirstLoading = true;
     
     private var listener: ListenerRegistration?
     
@@ -30,7 +31,7 @@ class MessageViewModel: ObservableObject {
         self.currentUserFullname = currentUserFullname
     }
     
-    func fetchMessages(completion: @escaping (Error?) -> Void) {
+    func fetchMessages(completion: ((Error?) -> Void)? = nil) {
         refreshing = true;
         collectionRef
             .order(by: "createdAt", descending: true)
@@ -58,8 +59,13 @@ class MessageViewModel: ObservableObject {
                     ))
                 })
                 
-                completion(error)
+                self.isFirstLoading = false
+                                
+                if let completion = completion {
+                    completion(error)
+                }
             }
+                
     }
     
     func loadMoreMessages () {
@@ -94,11 +100,25 @@ class MessageViewModel: ObservableObject {
                     print("Error listening for collection changes: \(error!)")
                     return
                 }
+                if (self.isFirstLoading == true) {
+                    return
+                }
                 
                 for documentChange in snapshot.documentChanges {
+                    let msgData = documentChange.document.data()
                     switch documentChange.type {
                     case .added:
                         print("Document added with ID: \(documentChange.document.documentID)")
+                        self.messages.append(Message(
+                            id: documentChange.document.documentID,
+                            senderId: msgData["senderId"] as? String ?? "",
+                            senderName: "SenderName",
+                            receiverId: msgData["receiverId"] as? String ?? "",
+                            receiverName: "ReceiverName",
+                            content: msgData["content"] as? String ?? "",
+                            createdAt: msgData["createdAt"] as? Date ?? Date()
+                        ))
+                        
                     case .modified:
                         print("Document modified with ID: \(documentChange.document.documentID)")
                     case .removed:

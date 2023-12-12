@@ -39,5 +39,11 @@ class FriendViewModal: ObservableObject {
         }
     }
     
+    func addSampleFriends () {
+        friends.append(UserModal(id: "user-id-1", fullName: "Jackson Nguyen", email: "jackson@gmail.com"))
+        friends.append(UserModal(id: "user-id-2", fullName: "Falcon Nguyen", email: "Falcon@gmail.com"))
+        friends.append(UserModal(id: "user-id-3", fullName: "Adam Nguyen", email: "adam@gmail.com"))
+    }
+    
     
 }

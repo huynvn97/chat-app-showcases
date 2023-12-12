@@ -35,5 +35,8 @@ struct DescriptionStyle: ViewModifier {
 }
 
 #Preview {
-    Text("Hello, world, this is title text long long").textStyle(TitleStyle())
+    VStack {
+        Text("Label text").textStyle(TitleStyle())
+        Text("Description Text").textStyle(DescriptionStyle())
+    }
 }

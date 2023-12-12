@@ -20,46 +20,46 @@ struct ListChatScreen: View {
     @EnvironmentObject private var messageViewModal: MessageViewModel
     @Binding var activeScreenTag: SCREEN_NAMES?
     
+    func handleOnPress (_ friend: UserModal) {
+        activeScreenTag = .CHAT_SCREEN
+        
+        messageViewModal.setChatInfo(
+            participantId: friend.id,
+            participantName: friend.fullName ?? "",
+            currentUserId: authViewModel.currenctUser?.id ?? "",
+            currentUserFullname: authViewModel.currenctUser?.fullName ?? ""
+        )
+    }
+    
     var body: some View {
         NavigationStack {
+            SearchFriendBox()
+            
             List {
-                SearchFriendBox()
-                
                 ForEach(friendViewModel.friends) {
                     friend in
-                   
-                        HStack {
-                            Image("WelcomeAppIcon")
-                                .resizable()
-                                .aspectRatio(contentMode: .fit)
-                                .frame(width: 50)
-                            
-                            VStack {
-                                Text("Jackson Nguyen").textStyle(LabelStyle())
-                                Text("You: Ok Thanks").textStyle(DescriptionStyle())
-                            }.frame(maxWidth:  .infinity, alignment: .leading)
-                            
+                    HStack {
+                        Image("WelcomeAppIcon")
+                            .resizable()
+                            .aspectRatio(contentMode: .fit)
+                            .frame(width: 50)
+                        
+                        VStack {
+                            Text(friend.email ?? "Unknow").textStyle(LabelStyle())
+                            Text("You: Ok Thanks").textStyle(DescriptionStyle())
                         }
-                        .padding(.horizontal, 15)
-                        .padding(.vertical, 15)
-                        .onTapGesture {
-                            activeScreenTag = .CHAT_SCREEN
-                            
-                            messageViewModal.setChatInfo(
-                                participantId: friend.id,
-                                participantName: friend.fullName ?? "",
-                                currentUserId: authViewModel.currenctUser?.id ?? "",
-                                currentUserFullname: authViewModel.currenctUser?.fullName ?? ""
-                            )
-                        }
-                    
+                    }.padding(.vertical, 10)
+                    .onTapGesture {
+                        handleOnPress(friend)
+                    }
                 }
-            }
-        }
-        .onAppear {
+            }.scrollContentBackground(.hidden)
+            .listStyle(.plain)
+            
+        }.onAppear {
             friendViewModel.fetchFriends()
         }
-            
+        
     }
 }
 
@@ -70,6 +70,9 @@ struct ListChatScreenForPreview: View {
     var body: some View {
         ListChatScreen(activeScreenTag: $activeScreenTag)
             .environmentObject(friendViewModel)
+//            .onAppear {
+//                friendViewModel.addSampleFriends()
+//            }
     }
 }
 

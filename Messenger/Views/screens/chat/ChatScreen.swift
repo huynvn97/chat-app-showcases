@@ -45,11 +45,8 @@ struct ChatScreen: View {
             }
         }.onAppear {
             if (messageViewModal.messages.count <= 0) {
-                messageViewModal.fetchMessages { error in
-                    if error == nil {
-                        messageViewModal.startObserving()
-                    }
-                }
+                messageViewModal.startObserving()
+                messageViewModal.fetchMessages()
             }
         }
         .onDisappear {
