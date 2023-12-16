@@ -76,31 +76,33 @@ class AuthViewModal: ObservableObject {
     
     func initUserProfile() {
         let userCollection = firestore.collection("users")
+        guard let currentUserId = currenctUser?.id else { return }
         
-        if let currentUserId = currenctUser?.id {
-            let userDocRef = userCollection.document(currentUserId)
+        let userDocRef = userCollection.document(currentUserId)
+        
+        userDocRef.getDocument { snapshot, error in
+            if let error = error {
+                print("Init profile error: \(error.localizedDescription)")
+                return
+            }
             
-            userDocRef.getDocument { snapshot, error in
-                if let error = error {
-                    print("Init profile error: \(error.localizedDescription)")
-                    return
+            if snapshot != nil { return }
+            
+            
+            userCollection.document(currentUserId).setData([
+                "id": currentUserId,
+                "email": self.currenctUser?.email ?? "",
+                "fullName": self.currenctUser?.fullName ?? ""
+            ]) { [weak self] err in
+                if let err = err  {
+                    print("err init profile: \(err.localizedDescription)")
                 }
-                
-                if let userDocument = snapshot {
-                    userCollection.document(currentUserId).setData([
-                        "id": currentUserId,
-                        "email": self.currenctUser?.email ?? "",
-                        "fullName": self.currenctUser?.fullName ?? ""
-                    ]) { [weak self] err in
-                        if let err = err  {
-                            print("err init profile: \(err.localizedDescription)")
-                        }
-                        else {
-                            print("save ok")
-                        }
-                    }
+                else {
+                    print("save ok")
                 }
             }
+            
+            
         }
     }
 }
