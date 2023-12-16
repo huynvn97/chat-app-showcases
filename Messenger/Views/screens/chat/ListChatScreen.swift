@@ -49,7 +49,7 @@ struct ListChatScreen: View {
                             Text(friendViewModel.getFriendNameById(friendId: friend.id) ?? "Unknow")
                                 .textStyle(LabelStyle())
                             
-                            Text("Me: Oke ne")
+                            Text("Me: Sample chat text")
                                 .textStyle(DescriptionStyle())
                         }
                     }
@@ -60,9 +60,9 @@ struct ListChatScreen: View {
                     }
                 }
             }.scrollContentBackground(.hidden)
-            .listStyle(.plain)
+                .listStyle(.plain)
             
-        
+            
             
         }.onAppear {
             friendViewModel.fetchFriends()
