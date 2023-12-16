@@ -93,7 +93,7 @@ class AuthViewModal: ObservableObject {
                 "id": currentUserId,
                 "email": self.currenctUser?.email ?? "",
                 "fullName": self.currenctUser?.fullName ?? ""
-            ]) { [weak self] err in
+            ]) { err in
                 if let err = err  {
                     print("err init profile: \(err.localizedDescription)")
                 }

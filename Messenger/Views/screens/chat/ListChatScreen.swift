@@ -53,7 +53,6 @@ struct ListChatScreen: View {
                                 .textStyle(DescriptionStyle())
                         }
                     }
-                    .padding(.vertical, 10)
                     .listRowSeparator(.hidden)
                     .onTapGesture {
                         handleOnPress(friend)

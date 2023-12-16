@@ -60,9 +60,10 @@ class MessageViewModel: ObservableObject {
         
         listener = collectionRef
             .order(by: "createdAt", descending: true)
-            .whereField("senderId", in: [currentUserId, participantId])
-            .whereField("receiverId", in: [currentUserId, participantId])
-            .addSnapshotListener({ snapshot, error in
+            .whereField("senderId", in: [currentUserId!, participantId!])
+            .whereField("receiverId", in: [currentUserId!, participantId!])
+            .addSnapshotListener({
+                [weak self] snapshot, error in
                 guard let snapshot = snapshot, error == nil else {
                     print("Error listening for collection changes: \(error!)")
                     return
@@ -73,7 +74,7 @@ class MessageViewModel: ObservableObject {
                     switch documentChange.type {
                     case .added:
                         print("Document added with ID: \(documentChange.document.documentID)")
-                        self.messages.append(Message(
+                        self!.messages.append(Message(
                             id: documentChange.document.documentID,
                             senderId: msgData["senderId"] as? String ?? "",
                             senderName: "SenderName",
