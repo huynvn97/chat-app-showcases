@@ -14,24 +14,27 @@ class FriendViewModal: ObservableObject {
     @Published var friends = [UserModal]()
     
     func fetchFriends () {
+        self.friends = [UserModal]()
         firestore.collection("users").getDocuments { snapshot, error in
             if let error = error {
                 print("fetchFriends error: \(error.localizedDescription)")
             } else {
-                snapshot?.documents.forEach({ documentSnapshot in
+                snapshot?.documents.forEach({
+                    documentSnapshot in
                     let userData = documentSnapshot.data()
                     print("user data", userData)
                     
                     guard let userId = userData["id"] as? String else { return }
+                    
+                    print("thí step")
                     
                     var user = UserModal(id: userId)
                     
                     user.email = userData["email"] as? String ?? nil
                     user.fullName = userData["fullName"] as? String ?? nil
                     
-                    self.friends = [UserModal]()
                     self.friends.append(user)
-                    
+                    print(user)
                 })
             }
         }
