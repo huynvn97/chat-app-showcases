@@ -44,8 +44,7 @@ struct ListChatScreen: View {
                             .aspectRatio(contentMode: .fit)
                             .frame(width: 50)
                         
-                        
-                        VStack (alignment: .leading){
+                        VStack (alignment: .leading) {
                             Text(friendViewModel.getFriendNameById(friendId: friend.id) ?? "Unknow")
                                 .textStyle(LabelStyle())
                             

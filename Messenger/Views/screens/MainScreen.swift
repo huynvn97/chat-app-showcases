@@ -17,11 +17,11 @@ struct MainScreen: View {
             TabView {
             
                 ListChatScreen(activeScreenTag: $activeScreenTag).tabItem {
-                    Text("Chat")
+                    Label("Chat", systemImage: "message.fill")
                 }
                 
                 SettingScreen().tabItem {
-                    Text("Settings")
+                    Label("Settings", systemImage: "gear")
                 }
             }
         }.background(.white)
